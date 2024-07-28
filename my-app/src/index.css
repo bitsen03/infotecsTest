@@ -147,18 +147,20 @@ button {
   border-radius: 20px;
   background-color: white;
 }
-.label-modal{
-  margin-top: 8px;
-  font-size: 24px;
-  font-weight: 400;
-}
+
 .modal-info {
-  font-size: 20px;
-  font-weight: 400;
+  font-size: 16px;
   border-radius: 8px;
   padding-bottom: 20px;
   box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
   position: relative;
+}
+.label-modal{
+  font-size: 20px;
+  font-weight: 600;
+}
+.block-form-modal {
+  margin-bottom: 10px;
 }
 .sorting-img {
   margin-left: 10px;
@@ -183,6 +185,7 @@ button {
   padding: 0 3px 0 7px;
 }
 .title-info {
+  width: 100px;
   font-weight: 400;
   font-size: 20px;
 }

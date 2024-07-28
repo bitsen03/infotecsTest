@@ -75,7 +75,7 @@ const Modal = ({ setModalActive, modalActive }) => {
                         </div>
                     </div>
 
-                    <div>
+                    <div className="block-form-modal">
                         <label className="label-modal">Отсортировать по полу</label>
                         <div>
                             <input
@@ -113,7 +113,7 @@ const Modal = ({ setModalActive, modalActive }) => {
                         </div>
                     </div>
 
-                    <div>
+                    <div className="block-form-modal">
                         <label className="label-modal">Отсортировать по адресу</label>
                         <div>
                             <input
@@ -151,7 +151,7 @@ const Modal = ({ setModalActive, modalActive }) => {
                         </div>
                     </div>
 
-                    <div>
+                    <div className="block-form-modal">
                         <label className="label-modal">Отсортировать по ФИО</label>
                         <div>
                             <input
