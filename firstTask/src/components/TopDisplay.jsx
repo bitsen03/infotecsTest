@@ -8,6 +8,12 @@ const dispatch = useDispatch();
 const [search, setSearch] = useState('');
 const [category, setCategory] = useState('phone');
 const [modalActive, setModalActive] = useState(false);
+const [sortOrder, setSortOrder] = useState({
+    age: 'none',
+    gender: 'none',
+    address: 'none',
+    fio: 'none',
+});
 
 const handleSearch = (e) => {
     setSearch(e);
@@ -29,11 +35,11 @@ const handleSubmit = async (e) => {
                     <img src="./filter.svg" alt="sort" />
                 </button>
                 <form onSubmit={(e) => handleSubmit(e)}>
-                <div className="sort-input">
+                <div className="sort-input pointer">
                     <button className="btn-Search">
                     <img className="img-Search" src="./Search.svg" alt="Search" />
                     </button>
-                    <input type="text" placeholder="Search..." value={search} onChange={(e) => handleSearch(e.target.value)}/>
+                    <input type="text" placeholder="Search..."  value={search} onChange={(e) => handleSearch(e.target.value)}/>
                 </div>
                 </form>
             </div>
@@ -43,12 +49,12 @@ const handleSubmit = async (e) => {
                 <p className="id-User">№</p>
                 <p className="name-User">Name</p>
                 <p className="addres-User">Address</p>
-                <p className={`age-User${category === 'age' ? ' active' : ''}`} onClick={() => setCategory('age')}>Age</p>
-                <p className={`sex-User${category === 'gender' ? ' active' : ''}`} onClick={() => setCategory('gender')}>Sex</p>
-                <p className={`phone-User${category === 'phone' ? ' active' : ''}`} onClick={() => setCategory('phone')}>Phone</p>
+                <p className={`age-User pointer${category === 'age' ? ' active' : ''}`} onClick={() => setCategory('age')}>Age</p>
+                <p className={`sex-User pointer${category === 'gender' ? ' active' : ''}`} onClick={() => setCategory('gender')}>Sex</p>
+                <p className={`phone-User pointer${category === 'phone' ? ' active' : ''}`} onClick={() => setCategory('phone')}>Phone</p>
             </div>
             </div>
-            {modalActive ? <Modal modalActive={modalActive} setModalActive={setModalActive}></Modal> : null}
+            {modalActive ? <Modal modalActive={modalActive} sortOrder={sortOrder} setSortOrder={setSortOrder} setModalActive={setModalActive}></Modal> : null}
         </div>
 
     )

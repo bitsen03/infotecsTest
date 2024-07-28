@@ -4,7 +4,7 @@ import ModalInformation from "./modal/ModaInformationl";
 const Users = ({children, white}) => {
 const [modalActive, setModalActive] = useState(false);
 const {age, address, gender, firstName, lastName, maidenName, phone, id, height, weight, email} = children;
-const cn = white % 2 === 0 ? `card-User grey` : `card-User white`
+const cn = white % 2 === 0 ? `card-User pointer grey` : `card-User pointer white`
 const name = `${firstName} ${lastName} ${maidenName}`
 const fullAddress = `${address.city} ${address.address}`
 

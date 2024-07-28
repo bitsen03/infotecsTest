@@ -18,7 +18,7 @@ const ModalInformation = ({ setModalActive, modalActive, phone, email, name, ful
                 <p>{name}</p>
             </div>
             <div className="info">
-                <p className="title-info">Addres</p>
+                <p className="title-info">Address</p>
                 <p>{fullAddress}</p>
             </div>
             <div className="info">
