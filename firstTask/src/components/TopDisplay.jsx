@@ -42,7 +42,7 @@ const handleSubmit = async (e) => {
                 <div className="card-User">
                 <p className="id-User">№</p>
                 <p className="name-User">Name</p>
-                <p className="addres-User">Addres</p>
+                <p className="addres-User">Address</p>
                 <p className={`age-User${category === 'age' ? ' active' : ''}`} onClick={() => setCategory('age')}>Age</p>
                 <p className={`sex-User${category === 'gender' ? ' active' : ''}`} onClick={() => setCategory('gender')}>Sex</p>
                 <p className={`phone-User${category === 'phone' ? ' active' : ''}`} onClick={() => setCategory('phone')}>Phone</p>
