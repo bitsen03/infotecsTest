@@ -1,33 +1,53 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
+import { Transition } from "react-transition-group";
 import Task from "./Task";
 import { IoIosArrowDropdown, IoIosArrowDropup, IoIosAdd } from "react-icons/io";
 import ModalCreate from "../modal/ModalCreate";
 
-const DropDown = ({value, date}) => {
-    const [ modalActive, setModalActive ] = useState(false);
-    const [active, setActive] = useState(false); 
-    const cn = active ? `active task` : 'task';
+const DropDown = ({ value, date }) => {
+    const [modalActive, setModalActive] = useState(false);
+    const [active, setActive] = useState(false);
+
+    // Условное название класса для управления видимостью списка задач
+    const taskListClassName = active ? 'active task-list' : 'task-list';
 
     return (
         <>
             <label className="task label">
                 <div className="qwe">
-                    <IoIosAdd className="setting-img" onClick={() => setModalActive(!modalActive)}></IoIosAdd>
+                    <IoIosAdd className="setting-img" onClick={() => setModalActive(!modalActive)} />
                     {date}
                 </div>
             </label>
+            
             <div className="div-arrow" onClick={() => setActive(!active)}>
-                {active ?  <IoIosArrowDropup className="arrow"/> : <IoIosArrowDropdown className="arrow"/>}
+                {active ? <IoIosArrowDropup className="arrow" /> : <IoIosArrowDropdown className="arrow" />}
             </div>
-            <div>  
-                <div className={cn}>
+            
+            <div>
+                <div className={taskListClassName}>
                     <div className="all-Tasks">
                         {
-                           value.length !== 0 ? value.map((el, index) => <Task index={index} >{el}</Task>) : <span>Задач пока нет</span>
+                            value.length !== 0 ? (
+                                value.map((el) => (
+                                    <Task key={el.id} index={el.id}>{el}</Task>
+                                ))
+                            ) : (
+                                <div className="dontHaveTask">
+                                    <span>Задач пока нет</span>
+                                </div>
+                            )
                         }
                     </div>
-                </div> 
-                {modalActive ? <ModalCreate setModalActive={setModalActive} id={date} modalActive={modalActive} /> : null}
+                </div>
+                <Transition
+                    in={modalActive}
+                    timeout={300} // Длительность анимации
+                    mountOnEnter
+                    unmountOnExit
+                >
+                    <ModalCreate setModalActive={setModalActive} id={date} modalActive={modalActive} />
+                </Transition>
             </div>
         </>
     );

@@ -9,9 +9,7 @@ body {
 }
 
 .App {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    height: 100vh;
+
 }
 
 .title {
@@ -37,7 +35,6 @@ body {
 .todo-header {
     display: flex;
     flex-direction: column;
-    margin-bottom: 200px;
 }
 .display {
     background-color: rgb(34, 34, 34);
@@ -106,10 +103,31 @@ body {
     flex-direction: column;
 }
 .name-task {
-    font-size: 20px;
-    overflow: hidden; 
-    text-overflow: ellipsis;
-    white-space: nowrap;  
+  font-size: 20px;
+  padding: 0 2px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.name-task::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0; /* Чтобы линия растягивалась на всю ширину элемента */
+  height: 3px; /* Толщина линии */
+  background-color: black; /* Цвет линии */
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 1s ease;
+  top: 50%; /* Расположение линии по вертикали */
+  pointer-events: none; /* Линия не будет перекрывать клики по тексту */
+}
+
+.name-task.line-through::after {
+  transform: scaleX(1);
 }
 .description-task {
     color: rgba(255, 255, 255, 0.7);
@@ -146,7 +164,7 @@ body {
     border: none;
     cursor: pointer;
     position: relative;
-    transition-duration: 300ms; /* анимация */
+    transition-duration: 400ms; /* анимация */
   }
   .switch-btn::after {
     content: "";
@@ -156,16 +174,14 @@ body {
     background: #fff; /* цвет кнопки */
     top: 3px; /* положение кнопки по вертикали относительно основы */
     left: 4px; /* положение кнопки по горизонтали относительно основы */
-    transition-duration: 300ms; /* анимация */
+    transition-duration: 400ms; /* анимация */
     position: absolute;
     z-index: 1;
   }
   .switch-on {
     background: #118c4e;
   }
-  .line-through {
-    text-decoration: line-through;
-  }
+
   .switch-on::after {
     left: 13px;
   }
@@ -202,54 +218,111 @@ body {
     width: 20px;
     height: 20px;
 }
+/* Определяем ключевые кадры для анимации появления содержимого */
+@keyframes contentFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Определяем ключевые кадры для анимации исчезновения содержимого */
+@keyframes contentFadeOut {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+}
+
+/* Определяем ключевые кадры для анимации появления модального окна */
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Определяем ключевые кадры для анимации исчезновения модального окна */
+@keyframes modalFadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+/* Основной стиль модального окна */
 .modal {
-    height: 100vh;
-    width: 100vw;
-    background-color: rgba(0, 0, 0, 0.4);
-    position: fixed;
-    top: 0;
-    left: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 100;
-  }
-  .unActive {
-    display: none;
-  }
-  .modal_content {
-    padding: 20px;
-    border-radius: 20px;
-    background-color: white;
-    color: black;
-  }
-  .info-card {
-    display: flex;
-    gap: 12px;
-    flex-direction: column;
-    margin-bottom: 20px;
-    flex: 1;
-    padding: 20px 5px 0 5px;
-    justify-content: center;
-  }
-  .modal-info {
-    font-size: 20px;
-    font-weight: 400;
-    border-radius: 8px;
-    padding-bottom: 20px;
-    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
-    position: relative;
-  }
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(0, 0, 0, 0.4);
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  opacity: 0; /* Начальное состояние скрыто */
+  animation: modalFadeIn 0.3s ease forwards; /* Анимация появления */
+  transition: opacity 0.3s ease;
+}
+
+
+/* Удаление модального окна (анимация исчезновения) */
+.modal.unActive {
+  animation: modalFadeOut 0.3s ease forwards; /* Анимация исчезновения */
+  display: flex; /* Должен оставаться видимым до конца анимации */
+}
+
+/* Стили для содержимого модального окна */
+.modal_content {
+  padding: 20px;
+  border-radius: 20px;
+  background-color: white;
+  color: black;
+  position: relative;
+  opacity: 0; /* Начальное состояние скрыто */
+  transform: scale(0.9); /* Начальное состояние уменьшено */
+  animation: contentFadeIn 0.3s ease forwards; /* Анимация появления */
+}
+
+/* Применение анимации к содержимому модального окна только при активации */
+.modal.active .modal_content {
+  opacity: 1; /* Видимое состояние */
+  transform: scale(1); /* Нормальный размер */
+}
+
+/* Применение анимации исчезновения содержимого, когда модальное окно деактивируется */
+.modal.unActive .modal_content {
+  animation: contentFadeOut 0.3s ease forwards; /* Анимация исчезновения */
+}
+
+
   .inputModal {
+    max-height: 100px;
     all: unset;
     padding: 5px;
     border-radius: 8px;
     border: none;
+    word-wrap: break-word;
   }
   .inputs-modal {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    position: relative;
   }
   /* 
   стилизация цветных input
@@ -263,7 +336,7 @@ body {
     position: relative;
     cursor: pointer;
     display: inline-block;
-    margin-right: 10px;
+    margin: 10px;
   }
   
   .radio-wrapper .custom-radio {
@@ -287,10 +360,11 @@ body {
     margin: 20px 0;
     display: grid;
     grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repeat(1, 1fr);
   }
   .titleInp {
+    margin-top: 20px;
     font-size: 20px;
-    font-weight: 400;
   }
   .tasks-btn {
     display: flex;
@@ -378,3 +452,61 @@ input[type="time"]::-webkit-datetime-edit-minute-field {
     background-color: rgba(228, 93, 93, 0.637);
 }
 
+.task-list {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 1s ease-out, opacity 1s ease-out;
+}
+
+.task-list.active {
+  max-height: 500px; /* Установите максимальную высоту, которая соответствует вашему контенту */
+  opacity: 1;
+  transition: max-height 1s ease-in, opacity 0.5s ease-in;
+}
+.dontHaveTask {
+  padding: 10px;
+}
+.delete {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(233, 96, 96);
+  border-radius: 50%;
+  position: absolute;
+  padding: 8px !important;
+  right: 10px;
+  top: 10px;
+}
+
+@media (max-width: 600px) {
+  .title {
+    font-size: 80px;
+    font-weight: 700;
+  }
+  .colors-radio {
+    margin: 20px 20px;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+  }
+}
+@media (max-width: 370px) {
+  .title {
+    font-size: 50px;
+    font-weight: 500;
+  }
+  .colors-radio {
+    margin: 20px 20px;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+  }
+  .btn {
+    padding: 8px 2px;
+  }
+  .modal-info {
+    font-weight: 250px;
+  }
+  .modal_content {
+    padding: 10px;
+  }
+}

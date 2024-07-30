@@ -1,47 +1,51 @@
 import { createSlice } from '@reduxjs/toolkit';
-import getDatesAroundToday from '../help/getDatesAroundToday'; 
+import getDatesAroundToday from '../help/getDatesAroundToday';
+import { saveState, loadState } from '../help/localStorege'; 
 
-const initialState = {};
+const initialState = loadState() || {};
+const dates = getDatesAroundToday(0, 6);
 
-const dates = getDatesAroundToday(0,6);
-
-for (let i = 0; i < dates.length - 1; i += 1) {
-    initialState[dates[i]] = []
-}
-
-
+dates.forEach(date => {
+    if (!initialState[date]) {
+        initialState[date] = [];
+    }
+});
 
 const taskSlice = createSlice({
     name: 'task',
     initialState,
     reducers: {
-        addTask: (state, {payload}) => {
-            const {id, value} = payload;
+        addTask: (state, { payload }) => {
+            const { id, value } = payload;
             if (state[id]) {
-                state[id].push(value)
+                state[id].push(value);
             } else {
-                state[id] = [value]
+                state[id] = [value];
             }
+            saveState(state); // Сохраняем состояние в localStorage
         },
-        removeTask: (state, {payload}) => {
-            const {id, index} = payload;
-            state[id].splice(index, 1)
+        removeTask: (state, { payload }) => {
+            const { id, index } = payload;
+            state[id].splice(index, 1);
+            saveState(state); // Сохраняем состояние в localStorage
         },
-        setCompletTask: (state, {payload}) => {
-            const {id, index, value} = payload;
-            state[id][index].completeTask = value
+        setCompletTask: (state, { payload }) => {
+            const { id, index, value } = payload;
+            state[id][index].completeTask = value;
+            saveState(state); // Сохраняем состояние в localStorage
         },
         updateTask: (state, { payload }) => {
             const { id, index, updates } = payload;
             Object.entries(updates).forEach(([key, value]) => {
                 state[id][index][key] = value;
             });
+            saveState(state); // Сохраняем состояние в localStorage
         }
     }
-})
+});
 
-export const selectTasks = state => state.task;
+export const selectTasks = (state) => state.task;
 export const selectTasksId = (state, id, index) => state.task[id][index];
-export const selectCompletTasksId = (state, id, index) => state.task[id][index].completeTask
-export const {addTask, removeTask, setCompletTask, updateTask} = taskSlice.actions;
+export const selectCompletTasksId = (state, id, index) => state.task[id][index].completeTask;
+export const { addTask, removeTask, setCompletTask, updateTask } = taskSlice.actions;
 export default taskSlice.reducer;

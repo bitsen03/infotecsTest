@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import ModalInputs from "./ModalInputs";
 import { useDispatch } from "react-redux";
-import { updateTask } from "../../redux/taskSlice";
+import { updateTask, removeTask} from "../../redux/taskSlice";
+import { FaRegTrashAlt } from "react-icons/fa";
 
 const ModalSettings = ({ setModalActive, modalActive, description, title, id, selectedColor, time, index}) => {
     const dispatch = useDispatch();
@@ -41,9 +42,13 @@ const ModalSettings = ({ setModalActive, modalActive, description, title, id, se
         }}))
         closeModal();
     }
+    const handleDelete = () => {
+        dispatch(removeTask({id, index}))
+        closeModal();
+    }
 
     return (
-        <div className={!modalActive ? 'unActive modal' : 'modal'} onClick={closeModal}>
+        <div className={!modalActive ? 'unActive modal' : 'modal active'} onClick={closeModal}>
             <div className="modal_content" onClick={stopPropagation}>
                 <ModalInputs 
                     title={titleInp} 
@@ -55,6 +60,7 @@ const ModalSettings = ({ setModalActive, modalActive, description, title, id, se
                     time={timeInp}
                     handleColorSelect={handleColorSelect}
                 />
+                <div className="delete btn" onClick={handleDelete}><FaRegTrashAlt /></div>
                     <div className="tasks-btn">
                         <input type="time" value={timeInp} onChange={(e) => setTime(e.target.value)}/>
                         <div className="buttons">

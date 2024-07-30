@@ -5,10 +5,11 @@ import { selectTasks } from "../../redux/taskSlice";
 
 const TaskWeek = () => {
     const tasks = Object.entries(useSelector(selectTasks))
+
     return (
         <div className="task-week">
-            {tasks?.map(([key, value]) => <div className="positionRelative-to-arrow">
-                <DropDown key={key} date={key} value={value}></DropDown>
+            {tasks?.map(([key, value], i) => <div key={key + i} className="positionRelative-to-arrow">
+                <DropDown date={key} value={value}></DropDown>
             </div>)}
         </div>
     );

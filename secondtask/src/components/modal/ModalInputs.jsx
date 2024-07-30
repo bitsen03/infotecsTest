@@ -4,8 +4,8 @@ import ColorInput from "./InputColor";
 const ModalInputs = ({title, description, setTitle, setDescription, colors, selectedColor, handleColorSelect}) => {
     return (
         <div className="inputs-modal">
-            <input className="inputModal titleInp" required value={title} onChange={(e) => setTitle(e.target.value)} type="text" placeholder="Название Задачи"/>
-            <input className="inputModal descriptionInp" required value={description} type="text" onChange={(e) => setDescription(e.target.value)} placeholder="Описание"/>
+            <textarea className="inputModal titleInp" required value={title} onChange={(e) => setTitle(e.target.value)} type="text" placeholder="Название Задачи"/>
+            <textarea className="inputModal descriptionInp" required value={description} type="text" onChange={(e) => setDescription(e.target.value)} placeholder="Описание"/>
             <div className="colors-radio">
                 {colors.map((color, index) =><ColorInput 
                     color={color} 

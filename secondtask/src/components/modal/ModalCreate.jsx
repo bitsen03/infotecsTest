@@ -56,7 +56,7 @@ const ModalCreate = ({ setModalActive, modalActive, id}) => {
 
 
     return (
-        <div className={!modalActive ? 'unActive modal' : 'modal'} onClick={closeModal}>
+        <div className={!modalActive ? 'unActive modal' : 'modal active'} onClick={closeModal}>
             <div className="modal_content" onClick={stopPropagation}>
                 <div className="inputs-modal">
                     <ModalInputs 
