@@ -3,7 +3,7 @@ import Display from "./Display";
 
 const Main = () => {
     return (
-        <main>
+        <main className="main">
             <Display></Display>
         </main>
     );
