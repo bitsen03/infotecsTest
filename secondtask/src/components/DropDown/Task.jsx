@@ -1,6 +1,7 @@
 import React, { useState } from "react";
+import { Transition } from "react-transition-group";
 import { useDispatch } from "react-redux";
-import { setCompletTask } from "../../redux/taskSlice";
+import { setCompletTask } from "../../redux/taskSlice"; 
 import ModalSettings from "../modal/ModalSettings";
 
 const Task = ({ children, index }) => {
@@ -28,7 +29,7 @@ const Task = ({ children, index }) => {
             <div className="text-task">
                 <div className="task-content" onClick={toggleModal}>
                     <div>
-                    <span className={titleCn}>{title}</span>
+                        <span className={titleCn}>{title}</span>
                     </div>
                     <span className="description-task">{description}</span>
                 </div>
@@ -39,15 +40,21 @@ const Task = ({ children, index }) => {
                     <div className={switchCn} onClick={handleSwitch}></div>
                 </div>
             </div>
-            {modalActiveSetting && 
-                <ModalSettings 
-                    setModalActive={setModalActiveSetting} 
-                    modalActive={modalActiveSetting} 
-                    id={id} 
-                    index={index} 
+            <Transition
+                in={modalActiveSetting}
+                timeout={400}
+                mountOnEnter
+                unmountOnExit
+            >
+                <ModalSettings
+                    setModalActive={setModalActiveSetting}
+                    modalActive={modalActiveSetting}
+                    id={id}
+                    index={index}
                     {...children}
                 />
-            }
+
+            </Transition>
         </div>
     );
 }

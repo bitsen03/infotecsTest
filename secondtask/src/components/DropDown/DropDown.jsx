@@ -29,8 +29,8 @@ const DropDown = ({ value, date }) => {
                     <div className="all-Tasks">
                         {
                             value.length !== 0 ? (
-                                value.map((el) => (
-                                    <Task key={el.id} index={el.id}>{el}</Task>
+                                value.map((el,i) => (
+                                    <Task key={el.id} index={i}>{el}</Task>
                                 ))
                             ) : (
                                 <div className="dontHaveTask">
@@ -42,7 +42,7 @@ const DropDown = ({ value, date }) => {
                 </div>
                 <Transition
                     in={modalActive}
-                    timeout={300} // Длительность анимации
+                    timeout={400} // Длительность анимации
                     mountOnEnter
                     unmountOnExit
                 >

@@ -18,9 +18,13 @@ const taskSlice = createSlice({
         addTask: (state, { payload }) => {
             const { id, value } = payload;
             if (state[id]) {
-                state[id].push(value);
-            } else {
+                if (value) {
+                    state[id].push(value);
+                }
+            } else if (value){
                 state[id] = [value];
+            } else {
+                state[id] = []
             }
             saveState(state); // Сохраняем состояние в localStorage
         },
@@ -31,6 +35,7 @@ const taskSlice = createSlice({
         },
         setCompletTask: (state, { payload }) => {
             const { id, index, value } = payload;
+            console.log(id, index, value)
             state[id][index].completeTask = value;
             saveState(state); // Сохраняем состояние в localStorage
         },

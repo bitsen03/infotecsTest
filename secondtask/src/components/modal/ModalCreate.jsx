@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 import { useDispatch } from "react-redux";
-import checkedValidate from "../../help/checkedValidate";
 import { addTask } from "../../redux/taskSlice";
+import checkedValidate from "../../help/checkedValidate";
 import ModalInputs from "./ModalInputs";
 
 const ModalCreate = ({ setModalActive, modalActive, id}) => {

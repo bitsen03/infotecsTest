@@ -8,10 +8,6 @@ body {
     font-family: Inter;
 }
 
-.App {
-
-}
-
 .title {
     font-size: 100px;
     font-weight: 700;
@@ -40,6 +36,7 @@ body {
     background-color: rgb(34, 34, 34);
     padding: 12px 12px 50px;
     width: 400px;
+    min-height: 600px;
     height: auto;
     border-radius: 15px;
     margin-top: 100px;
@@ -116,14 +113,14 @@ body {
   content: '';
   position: absolute;
   left: 0;
-  right: 0; /* Чтобы линия растягивалась на всю ширину элемента */
-  height: 3px; /* Толщина линии */
-  background-color: black; /* Цвет линии */
+  right: 0; 
+  height: 3px; 
+  background-color: black; 
   transform: scaleX(0);
   transform-origin: left center;
   transition: transform 1s ease;
-  top: 50%; /* Расположение линии по вертикали */
-  pointer-events: none; /* Линия не будет перекрывать клики по тексту */
+  top: 50%; 
+  pointer-events: none; 
 }
 
 .name-task.line-through::after {
@@ -154,27 +151,27 @@ body {
 }
 .switch-btn {
     display: inline-block;
-    width: 30px; /* ширина */
-    height: 20px; /* высота */
-    border-radius: 19px; /* радиус скругления */
-    background: rgb(57, 102, 250); /* цвет фона */
+    width: 30px; 
+    height: 20px; 
+    border-radius: 19px; 
+    background: rgb(57, 102, 250); 
     z-index: 0;
     margin: 0;
     padding: 0;
     border: none;
     cursor: pointer;
     position: relative;
-    transition-duration: 400ms; /* анимация */
+    transition-duration: 400ms; 
   }
   .switch-btn::after {
     content: "";
-    height: 14px; /* высота кнопки */
-    width: 14px; /* ширина кнопки */
+    height: 14px; 
+    width: 14px; 
     border-radius: 17px;
-    background: #fff; /* цвет кнопки */
-    top: 3px; /* положение кнопки по вертикали относительно основы */
-    left: 4px; /* положение кнопки по горизонтали относительно основы */
-    transition-duration: 400ms; /* анимация */
+    background: #fff; 
+    top: 3px; 
+    left: 4px; 
+    transition-duration: 400ms; 
     position: absolute;
     z-index: 1;
   }
@@ -274,16 +271,16 @@ body {
   align-items: center;
   justify-content: center;
   z-index: 100;
-  opacity: 0; /* Начальное состояние скрыто */
-  animation: modalFadeIn 0.3s ease forwards; /* Анимация появления */
-  transition: opacity 0.3s ease;
+  opacity: 0; 
+  animation: modalFadeIn 0.5s ease forwards; 
+  transition: opacity 0.5s ease;
 }
 
 
 /* Удаление модального окна (анимация исчезновения) */
 .modal.unActive {
-  animation: modalFadeOut 0.3s ease forwards; /* Анимация исчезновения */
-  display: flex; /* Должен оставаться видимым до конца анимации */
+  animation: modalFadeOut 0.5s ease forwards; 
+  display: flex; 
 }
 
 /* Стили для содержимого модального окна */
@@ -293,22 +290,19 @@ body {
   background-color: white;
   color: black;
   position: relative;
-  opacity: 0; /* Начальное состояние скрыто */
-  transform: scale(0.9); /* Начальное состояние уменьшено */
-  animation: contentFadeIn 0.3s ease forwards; /* Анимация появления */
+  opacity: 0; 
+  transform: scale(0.9); 
+  animation: contentFadeIn 0.5s ease forwards; 
 }
 
-/* Применение анимации к содержимому модального окна только при активации */
 .modal.active .modal_content {
-  opacity: 1; /* Видимое состояние */
-  transform: scale(1); /* Нормальный размер */
+  opacity: 1; 
+  transform: scale(1); 
 }
 
-/* Применение анимации исчезновения содержимого, когда модальное окно деактивируется */
 .modal.unActive .modal_content {
-  animation: contentFadeOut 0.3s ease forwards; /* Анимация исчезновения */
+  animation: contentFadeOut 0.5s ease forwards; 
 }
-
 
   .inputModal {
     max-height: 100px;
@@ -460,7 +454,7 @@ input[type="time"]::-webkit-datetime-edit-minute-field {
 }
 
 .task-list.active {
-  max-height: 500px; /* Установите максимальную высоту, которая соответствует вашему контенту */
+  max-height: 500px; 
   opacity: 1;
   transition: max-height 1s ease-in, opacity 0.5s ease-in;
 }
@@ -471,13 +465,85 @@ input[type="time"]::-webkit-datetime-edit-minute-field {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgb(233, 96, 96);
+  background-color: rgb(228, 93, 93);
   border-radius: 50%;
   position: absolute;
   padding: 8px !important;
   right: 10px;
   top: 10px;
 }
+
+/* DateInput.css */
+
+.date-input-container {
+  position: relative;
+  display: inline-block;
+}
+
+.dark-theme-date-input {
+  background-color: #333;  
+  color: #fff;             
+  border: 1px solid #444;  
+  border-radius: 4px;     
+  padding: 8px;            
+  font-size: 16px;        
+  outline: none;        
+  padding-right: 40px;    
+  position: relative;
+}
+
+.dark-theme-date-input::-webkit-calendar-picker-indicator {
+  display: none; /* Hide the default date picker icon */
+}
+
+.custom-date-button {
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: transparent;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 2px 6px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.custom-date-button:hover {
+  background-color: #555;
+}
+
+.dark-theme-date-input:focus {
+  border-color: #888;     
+  box-shadow: 0 0 5px 2px rgba(255, 255, 255, 0.2); 
+}
+
+/* Placeholder text color for WebKit browsers (Chrome, Safari, Opera) */
+.dark-theme-date-input::-webkit-input-placeholder {
+  color: #aaa;
+}
+
+/* Placeholder text color for Firefox */
+.dark-theme-date-input::-moz-placeholder {
+  color: #aaa;
+}
+
+/* Placeholder text color for Internet Explorer */
+.dark-theme-date-input:-ms-input-placeholder {
+  color: #aaa;
+}
+
+/* Placeholder text color for older versions of Firefox */
+.dark-theme-date-input:-moz-placeholder {
+  color: #aaa;
+}
+
+.add {
+  width: 24px;
+  height: 24px;
+}
+
 
 @media (max-width: 600px) {
   .title {
@@ -508,5 +574,14 @@ input[type="time"]::-webkit-datetime-edit-minute-field {
   }
   .modal_content {
     padding: 10px;
+  }
+  .custom-date-button {
+    top: 20px;
+  }
+  .title-display {
+    font-size: 0;
+  }
+  .header-display {
+    justify-content: center;
   }
 }
